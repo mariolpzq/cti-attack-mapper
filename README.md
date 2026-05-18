@@ -68,7 +68,6 @@ cti-attack-mapper/
 │   ├── run_eval.py        # Eval harness (precision/recall/F1)
 │   ├── reports/           # report_N.txt + report_N_truth.json
 │   └── results.md         # Results and error analysis
-├── .env.example
 └── pyproject.toml
 ```
 
@@ -81,7 +80,7 @@ See `eval/results.md`.
 - No fine-tuning; relies entirely on prompt + RAG retrieval.
 - Reports truncated to around 8k tokens.
 - Strict T-ID exact match only.
-- Eval set is small (5 reports).
+- Eval set is small (3 reports).
 
 ---
 
