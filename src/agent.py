@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", message="create_react_agent has been moved")
 load_dotenv()
 
 MODEL_NAME = "llama-3.3-70b-versatile"
-MAX_REPORT_CHARS = 32000  # ~8k tokens; truncate longer reports for cost control
+MAX_REPORT_CHARS = 32000 # around 8k tokens
 
 SYSTEM_PROMPT = """\
 You are a senior threat intelligence analyst. Your job is to read a CTI report
