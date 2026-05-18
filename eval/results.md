@@ -31,7 +31,3 @@ Strict T-ID exact-match precision / recall / F1.
 - **Hits** (8): T1003.001, T1018, T1021.001, T1047, T1059.001, T1204.002, T1219, T1558.003
 - **Misses** (20): T1016, T1021.002, T1036, T1055, T1057, T1059.003, T1069.002, T1070.004, T1071.001, T1078, T1087.002, T1105, T1110.001, T1218.011, T1482, T1518, T1553.005, T1566, T1569, T1570
 - **Extras** (2): T1027, T1569.002
-
-## Error analysis
-
-_TODO after running: pick 2-3 misses and 2-3 false positives, write 2-3 sentences each on why the agent got it wrong._
