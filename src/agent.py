@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -100,23 +101,24 @@ def extract_techniques(report_text: str) -> dict:
 
     if len(report_text) > MAX_REPORT_CHARS:
         report_text = report_text[:MAX_REPORT_CHARS] + "\n\n[REPORT TRUNCATED]"
-        agent = _build_agent()
-        user_msg = HumanMessage(content=f"Extract MITRE ATT&CK techniques from the following CTI report:\n\n{report_text}")
 
-        for attempt in range(1, MAX_RETRIES + 1):
-            try:
-                result = agent.invoke({"messages": [user_msg]})
-                final_text = result["messages"][-1].content
-                return _extract_json(final_text)
-            
-            except Exception as exc:
-                if _is_rate_limit_error(exc) and attempt < MAX_RETRIES:
-                    wait = RETRY_WAIT_SECONDS * attempt  # 20s, 40s, 60s, ...
-                    print(
-                        f"  [rate limit] hit 429 on attempt {attempt}/{MAX_RETRIES}. "
-                        f"Waiting {wait}s before retry...",
-                        flush=True,
-                    )
-                    time.sleep(wait)
-                else:
-                    raise
+    agent = _build_agent()
+    user_msg = HumanMessage(content=f"Extract MITRE ATT&CK techniques from the following CTI report:\n\n{report_text}")
+
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            result = agent.invoke({"messages": [user_msg]})
+            final_text = result["messages"][-1].content
+            return _extract_json(final_text)
+
+        except Exception as exc:
+            if _is_rate_limit_error(exc) and attempt < MAX_RETRIES:
+                wait = RETRY_WAIT_SECONDS * attempt  # 20s, 40s, 60s, ...
+                print(
+                    f"  [rate limit] hit 429 on attempt {attempt}/{MAX_RETRIES}. "
+                    f"Waiting {wait}s before retry...",
+                    flush=True,
+                )
+                time.sleep(wait)
+            else:
+                raise

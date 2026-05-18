@@ -1,4 +1,4 @@
-# CTI ATT&CK Mapper
+# CTI ATT&CK Mapper (WIP)
 
 An LLM agent that extracts MITRE ATT&CK techniques from cyber threat intelligence (CTI) reports, using LangChain for agent orchestration and RAG over the MITRE ATT&CK Enterprise knowledge base.
 
@@ -111,10 +111,3 @@ See `eval/results.md` after running the eval.
 - No fine-tuning; relies on prompt + retrieval alone.
 - Small eval set (5 reports).
 
-## What I'd do next
-
-- Add a self-critique step where the agent reviews its own output before returning.
-- Compare against open-weight models (e.g., Llama 3) for cost/quality tradeoffs.
-- Expand eval set to 20+ reports and add adversarial cases (e.g., reports with no real techniques).
-- Add lenient parent-technique scoring alongside strict.
-- Chunk long reports and aggregate technique sets across chunks.

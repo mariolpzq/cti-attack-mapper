@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from pathlib import Path
 
 from src.agent import extract_techniques
@@ -81,8 +82,13 @@ def main() -> None:
 
     PREDICTIONS_DIR.mkdir(parents=True, exist_ok=True)
 
+    INTER_REPORT_SLEEP = 60  # seconds; avoids hitting Gemini RPM limits across reports
+
     rows: list[dict] = []
-    for name, report_path, truth_path in triples:
+    for i, (name, report_path, truth_path) in enumerate(triples):
+        if i > 0:
+            print(f"  [rate limit] sleeping {INTER_REPORT_SLEEP}s between reports...", flush=True)
+            time.sleep(INTER_REPORT_SLEEP)
         print(f"\n=== {name} ===")
         report_text = report_path.read_text(encoding="utf-8")
         truth = load_truth(truth_path)
