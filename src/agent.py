@@ -15,7 +15,7 @@ import time
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_react_agent
 
 from src.tools import search_attack_techniques
 
@@ -85,7 +85,7 @@ def _build_agent():
 
 def _extract_json(text: str) -> dict:
     "Pull the JSON object out of the model's final message"
-    text = re.sub(r"```json\s*", "", text)  
+    text = re.sub(r"```json\s*", "", text)
     text = text.replace("```", "").strip()
     start = text.find("{")
     end = text.rfind("}")
@@ -122,3 +122,20 @@ def extract_techniques(report_text: str) -> dict:
                 time.sleep(wait)
             else:
                 raise
+
+
+if __name__ == "__main__":
+    import sys
+    from pathlib import Path
+
+    if len(sys.argv) != 2:
+        print("Usage: python -m src.agent <path/to/report.txt>", file=sys.stderr)
+        sys.exit(2)
+
+    path = Path(sys.argv[1])
+    if not path.exists():
+        print(f"File not found: {path}", file=sys.stderr)
+        sys.exit(1)
+
+    result = extract_techniques(path.read_text(encoding="utf-8"))
+    print(json.dumps(result, indent=2, ensure_ascii=False))
