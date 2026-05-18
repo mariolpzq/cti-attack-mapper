@@ -10,7 +10,6 @@ from __future__ import annotations
 import json
 import os
 import re
-import time
 
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
@@ -23,9 +22,6 @@ load_dotenv()
 
 MODEL_NAME = "llama-3.3-70b-versatile"
 MAX_REPORT_CHARS = 32000  # ~8k tokens; truncate longer reports for cost control
-
-RETRY_WAIT_SECONDS = 20
-MAX_RETRIES = 6
 
 SYSTEM_PROMPT = """\
 You are a senior threat intelligence analyst. Your job is to read a CTI report
@@ -81,8 +77,9 @@ def _build_agent():
         prompt=SystemMessage(content=SYSTEM_PROMPT),
     )
 
+
 def _extract_json(text: str) -> dict:
-    "Pull the JSON object out of the model's final message"
+    """Pull the JSON object out of the model's final message."""
     text = re.sub(r"```json\s*", "", text)
     text = text.replace("```", "").strip()
     start = text.find("{")
@@ -91,35 +88,18 @@ def _extract_json(text: str) -> dict:
         raise ValueError("No JSON object found in the text")
     return json.loads(text[start : end + 1])
 
-def _is_rate_limit_error(exc: Exception) -> bool:
-    return "429" in str(exc) or "RESOURCE_EXHAUSTED" in str(exc)
 
 def extract_techniques(report_text: str) -> dict:
-    "Run the agent over a CTI report, retrying on 429 rate-limit errors."
-
+    """Run the agent over a CTI report and return structured technique list."""
     if len(report_text) > MAX_REPORT_CHARS:
         report_text = report_text[:MAX_REPORT_CHARS] + "\n\n[REPORT TRUNCATED]"
 
     agent = _build_agent()
-    user_msg = HumanMessage(content=f"Extract MITRE ATT&CK techniques from the following CTI report:\n\n{report_text}")
-
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            result = agent.invoke({"messages": [user_msg]})
-            final_text = result["messages"][-1].content
-            return _extract_json(final_text)
-
-        except Exception as exc:
-            if _is_rate_limit_error(exc) and attempt < MAX_RETRIES:
-                wait = RETRY_WAIT_SECONDS * attempt  # 20s, 40s, 60s, ...
-                print(
-                    f"  [rate limit] hit 429 on attempt {attempt}/{MAX_RETRIES}. "
-                    f"Waiting {wait}s before retry...",
-                    flush=True,
-                )
-                time.sleep(wait)
-            else:
-                raise
+    user_msg = HumanMessage(
+        content=f"Extract MITRE ATT&CK techniques from the following CTI report:\n\n{report_text}"
+    )
+    result = agent.invoke({"messages": [user_msg]})
+    return _extract_json(result["messages"][-1].content)
 
 
 if __name__ == "__main__":
