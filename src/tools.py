@@ -5,29 +5,22 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_core.tools import tool
 from langchain_huggingface import HuggingFaceEmbeddings
 
-CHROMA_DIR = Path("data/chroma")
+FAISS_DIR = Path("data/faiss")
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
 
-@lru_cache(maxsize=1)
-def _get_store() -> Chroma:
-    """Lazy-load the persisted Chroma store once per process."""
-    if not CHROMA_DIR.exists():
-        raise FileNotFoundError(
-            f"Chroma store not found at {CHROMA_DIR}. "
-            "Run `uv run python -m src.attack_loader` first."
-        )
-    embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
-    return Chroma(
-        persist_directory=str(CHROMA_DIR),
-        embedding_function=embeddings,
-        collection_name="attack_techniques",
-    )
+_STORE: FAISS | None = None
 
+def _get_store() -> FAISS:
+    global _STORE
+    if _STORE is None:
+        embeddings = HuggingFaceEmbeddings(model_name=EMBED_MODEL)
+        _STORE = FAISS.load_local(str(FAISS_DIR), embeddings, allow_dangerous_deserialization=True)
+    return _STORE
 
 @tool
 def search_attack_techniques(behavior_description: str) -> str:
@@ -41,8 +34,7 @@ def search_attack_techniques(behavior_description: str) -> str:
 
     Returns:
         Top-5 candidate techniques as a formatted string with T-ID, name, tactics,
-        and a description excerpt for each. The agent should then decide which (if
-        any) actually matches the behavior described in the report.
+        and a description excerpt for each.
     """
     store = _get_store()
     results = store.similarity_search(behavior_description, k=5)
