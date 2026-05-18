@@ -3,52 +3,37 @@
     {
       "id": "T1059.001",
       "name": "Command and Scripting Interpreter: PowerShell",
-      "evidence": "The threat actors used PowerShell to download and execute a new Cobalt Strike PowerShell beacon in memory on the beachhead host."
+      "evidence": "The threat actor used PowerShell to download and execute a new Cobalt Strike PowerShell beacon in memory on the beachhead host."
     },
     {
       "id": "T1204.002",
       "name": "Malicious File",
-      "evidence": "The intrusion began with a password protected zipped ISO file that, when extracted and mounted, presented a single file named documents, which, when opened, started a hidden DLL file containing the Bumblebee malware loader."
+      "evidence": "The execution phase started with a password-protected zip, which after extracting would show the user an ISO file that after the user double clicks would mount like a CD or external media device on Windows and present the user with a single file named documents in the directory."
     },
     {
       "id": "T1003.001",
-      "name": "OS Credential Dumping: LSASS Memory",
-      "evidence": "The threat actor used Procdump to dump LSASS, and later used a built-in Windows tool, comsvcs.dll, to dump LSASS on the beachhead host."
+      "name": "LSASS Memory",
+      "evidence": "The threat actor used a built-in Windows tool, comsvcs.dll, to dump LSASS on the beachhead host."
     },
     {
-      "id": "T1558.003",
-      "name": "Use of Kerberoasting",
-      "evidence": "The threat actor executed the PowerShell module Invoke-Kerberoast."
-    },
-    {
-      "id": "T1021.001",
-      "name": "Remote Services: Remote Desktop Protocol",
+      "id": "T1021.006",
+      "name": "Windows Remote Management",
       "evidence": "The threat actor used RDP to access a server using the local Administrator account."
     },
     {
-      "id": "T1569.002",
-      "name": "System Services: Service Execution",
-      "evidence": "The threat actor used remote services to execute Procdump, which was used to dump LSASS."
+      "id": "T1558.003",
+      "name": "Kerberoasting",
+      "evidence": "The threat actors executed the PowerShell module Invoke-Kerberoast."
     },
     {
-      "id": "T1047",
-      "name": "Windows Management Instrumentation",
-      "evidence": "The threat actor used Windows utilities like ping and tasklist for discovery tasks."
+      "id": "T1563.002",
+      "name": "RDP Hijacking",
+      "evidence": "The threat actor used RDP to access a server using the local Administrator account."
     },
     {
-      "id": "T1018",
-      "name": "Remote System Discovery",
-      "evidence": "The threat actor used Adfind for Active Directory discovery."
-    },
-    {
-      "id": "T1027",
-      "name": "System Service Discovery",
-      "evidence": "The threat actor used Windows utilities like ping and tasklist for discovery tasks."
-    },
-    {
-      "id": "T1219",
-      "name": "Remote Access Tools",
-      "evidence": "The threat actor deployed AnyDesk, which was the only observed persistence mechanism used during the intrusion."
+      "id": "T1574.001",
+      "name": "Command and Scripting Interpreter: DLL",
+      "evidence": "The user inadvertently started a hidden file, a DLL (namr.dll) containing the Bumblebee malware loader."
     }
   ]
 }

@@ -11,9 +11,9 @@
       "evidence": "an embedded VBA macro executed that decoded a base64 string and launched PowerShell with the -EncodedCommand flag to run a second-stage payload entirely in memory."
     },
     {
-      "id": "T1105",
-      "name": "Ingress Tool Transfer",
-      "evidence": "The PowerShell stage downloaded an additional implant over HTTPS from an attacker-controlled domain."
+      "id": "T1059.005",
+      "name": "Visual Basic",
+      "evidence": "an embedded VBA macro executed that decoded a base64 string and launched PowerShell with the -EncodedCommand flag to run a second-stage payload entirely in memory."
     },
     {
       "id": "T1547.001",
