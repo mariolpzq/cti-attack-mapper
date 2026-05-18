@@ -59,7 +59,15 @@ uv run python -m src.attack_loader
 
 This downloads the Enterprise ATT&CK STIX bundle, embeds each technique's description with `sentence-transformers/all-MiniLM-L6-v2`, and stores it in a local Chroma DB at `./data/chroma`.
 
-### 2. Run the full eval
+### 2. Extract techniques from a single report
+
+```bash
+uv run python -m src.agent eval/reports/report_1.txt
+```
+
+Outputs structured JSON to stdout.
+
+### 3. Run the full eval
 
 ```bash
 uv run python -m eval.run_eval
