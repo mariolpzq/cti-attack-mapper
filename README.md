@@ -59,15 +59,7 @@ uv run python -m src.attack_loader
 
 This downloads the Enterprise ATT&CK STIX bundle, embeds each technique's description with `sentence-transformers/all-MiniLM-L6-v2`, and stores it in a local Chroma DB at `./data/chroma`.
 
-### 2. Extract techniques from a single report
-
-```bash
-uv run python -m src.extractor eval/reports/report_1.txt
-```
-
-Outputs structured JSON to stdout.
-
-### 3. Run the full eval
+### 2. Run the full eval
 
 ```bash
 uv run python -m eval.run_eval
@@ -88,8 +80,7 @@ cti-attack-mapper/
 │   ├── __init__.py
 │   ├── attack_loader.py    # Download STIX → embed → Chroma
 │   ├── tools.py            # search_attack_techniques tool
-│   ├── agent.py            # LangChain agent setup
-│   └── extractor.py        # Top-level CLI
+│   └── agent.py            # LangChain agent setup + extract_techniques()
 ├── eval/
 │   ├── __init__.py
 │   ├── run_eval.py         # Eval harness
@@ -105,7 +96,7 @@ See `eval/results.md` after running the eval.
 
 ## Limitations
 
-- Single LLM backend tested (Gemini 1.5 Flash).
+- Single LLM backend tested (Gemini 2.5 Flash).
 - Reports truncated to first 8000 tokens; no chunking for very long reports.
 - Strict T-ID matching only (no parent-technique partial credit).
 - No fine-tuning; relies on prompt + retrieval alone.
