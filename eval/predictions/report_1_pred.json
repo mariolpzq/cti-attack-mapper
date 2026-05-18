@@ -1,0 +1,49 @@
+{
+  "techniques": [
+    {
+      "id": "T1566.001",
+      "name": "Phishing: Spearphishing Attachment",
+      "evidence": "the threat actor gained initial access by sending a spearphishing email containing a malicious Microsoft Word attachment."
+    },
+    {
+      "id": "T1059.005",
+      "name": "Command and Scripting Interpreter: Visual Basic",
+      "evidence": "an embedded VBA macro executed that decoded a base64 string and launched PowerShell with the -EncodedCommand flag to run a second-stage payload entirely in memory."
+    },
+    {
+      "id": "T1059.001",
+      "name": "Command and Scripting Interpreter: PowerShell",
+      "evidence": "an embedded VBA macro executed that decoded a base64 string and launched PowerShell with the -EncodedCommand flag to run a second-stage payload entirely in memory."
+    },
+    {
+      "id": "T1547.001",
+      "name": "Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder",
+      "evidence": "the implant established persistence by creating a new entry in the Run registry key that pointed to the implant binary."
+    },
+    {
+      "id": "T1003.001",
+      "name": "OS Credential Dumping: LSASS Memory",
+      "evidence": "the actor used Mimikatz on the compromised host to dump credentials from LSASS memory."
+    },
+    {
+      "id": "T1021.002",
+      "name": "Remote Services: SMB/Windows Admin Shares",
+      "evidence": "they moved laterally across the network using valid domain administrator credentials and the Server Message Block protocol to copy tooling to remote hosts."
+    },
+    {
+      "id": "T1071.001",
+      "name": "Application Layer Protocol: Web Protocols",
+      "evidence": "command and control traffic was carried over HTTPS to a small number of attacker-controlled web servers, blending in with normal web browsing traffic."
+    },
+    {
+      "id": "T1027.015",
+      "name": "Data Obfuscation: Compression",
+      "evidence": "prior to exfiltration, the actor compressed staged data into a multi-volume RAR archive on a staging host."
+    },
+    {
+      "id": "T1041",
+      "name": "Exfiltration Over C2 Channel",
+      "evidence": "exfiltration was then performed over the same HTTPS C2 channel."
+    }
+  ]
+}
