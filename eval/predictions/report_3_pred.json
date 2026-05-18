@@ -1,69 +1,54 @@
 {
   "techniques": [
     {
-      "id": "T1003.001",
-      "name": "LSASS Memory",
-      "evidence": "Cobalt Strike injects into the LSASS process to steal cached credentials."
-    },
-    {
-      "id": "T1041",
-      "name": "Exfiltration Over C2 Channel",
-      "evidence": "The malware executes the initial discovery commands and then exfiltrates the results via the C2 channel."
-    },
-    {
       "id": "T1059.001",
-      "name": "PowerShell",
-      "evidence": "The attackers use a PowerShell loader method to deploy a Beacon."
+      "name": "Command and Scripting Interpreter: PowerShell",
+      "evidence": "The threat actors used PowerShell to download and execute a new Cobalt Strike PowerShell beacon in memory on the beachhead host."
     },
     {
-      "id": "T1059.003",
-      "name": "Windows Command Shell",
-      "evidence": "The attackers execute batch scripts to disable antivirus programs."
+      "id": "T1204.002",
+      "name": "Malicious File",
+      "evidence": "The intrusion began with a password protected zipped ISO file that, when extracted and mounted, presented a single file named documents, which, when opened, started a hidden DLL file containing the Bumblebee malware loader."
     },
     {
-      "id": "T1078.002",
-      "name": "Domain Accounts",
-      "evidence": "The threat actors instructed IcedID to download and execute the next stage malware two hours after the initial compromise."
+      "id": "T1003.001",
+      "name": "OS Credential Dumping: LSASS Memory",
+      "evidence": "The threat actor used Procdump to dump LSASS, and later used a built-in Windows tool, comsvcs.dll, to dump LSASS on the beachhead host."
     },
     {
-      "id": "T1203",
-      "name": "Exploitation for Client Execution",
-      "evidence": "The attackers deployed XingLocker ransomware via wmic and batch scripts."
+      "id": "T1558.003",
+      "name": "Use of Kerberoasting",
+      "evidence": "The threat actor executed the PowerShell module Invoke-Kerberoast."
     },
     {
-      "id": "T1218.010",
-      "name": "Regsvr32",
-      "evidence": "A batch script schedules a task to execute a command to load a Cobalt Strike Beacon into memory using regsvr32."
+      "id": "T1021.001",
+      "name": "Remote Services: Remote Desktop Protocol",
+      "evidence": "The threat actor used RDP to access a server using the local Administrator account."
     },
     {
-      "id": "T1486",
-      "name": "Data Encrypted for Impact",
-      "evidence": "The threat actors deployed XingLocker ransomware."
+      "id": "T1569.002",
+      "name": "System Services: Service Execution",
+      "evidence": "The threat actor used remote services to execute Procdump, which was used to dump LSASS."
     },
     {
-      "id": "T1543.001",
-      "name": "Launch Agent",
-      "evidence": "The attackers used Cobalt Strike’s jump psexec_psh capability to move laterally."
+      "id": "T1047",
+      "name": "Windows Management Instrumentation",
+      "evidence": "The threat actor used Windows utilities like ping and tasklist for discovery tasks."
     },
     {
-      "id": "T1570",
-      "name": "Lateral Tool Transfer",
-      "evidence": "The attackers downloaded and executed AdFind to collect further information about the domain."
+      "id": "T1018",
+      "name": "Remote System Discovery",
+      "evidence": "The threat actor used Adfind for Active Directory discovery."
     },
     {
-      "id": "T1574.008",
-      "name": "Path Interception by Search Order Hijacking",
-      "evidence": "The attackers used batch scripts for persistence, defense evasion and execution tasks."
+      "id": "T1027",
+      "name": "System Service Discovery",
+      "evidence": "The threat actor used Windows utilities like ping and tasklist for discovery tasks."
     },
     {
-      "id": "T1584.001",
-      "name": "Domains",
-      "evidence": "The attackers had a script for persistence, defense evasion and execution tasks."
-    },
-    {
-      "id": "T1685",
-      "name": "Disable or Modify Tools",
-      "evidence": "The attackers executed batch scripts to disable antivirus programs."
+      "id": "T1219",
+      "name": "Remote Access Tools",
+      "evidence": "The threat actor deployed AnyDesk, which was the only observed persistence mechanism used during the intrusion."
     }
   ]
 }

@@ -20,6 +20,5 @@ For each CTI report, create two files in this directory:
 ## Chosen reports
 
 *Report 1*: smoke test
-*Report 2* [Nitrogen Campaign Drops Sliver and Ends With BlackCat Ransomware ](http://thedfirreport.com/2024/09/30/nitrogen-campaign-drops-sliver-and-ends-with-blackcat-ransomware/)
-*Report 3*: [IcedID to XingLocker Ransomware in 24 hours](https://thedfirreport.com/2021/10/18/icedid-to-xinglocker-ransomware-in-24-hours/)
-*Report 4*: [BumbleBee Roasts Its Way to Domain Admin](https://thedfirreport.com/2022/08/08/bumblebee-roasts-its-way-to-domain-admin/)
+*Report 2*: [IcedID to XingLocker Ransomware in 24 hours](https://thedfirreport.com/2021/10/18/icedid-to-xinglocker-ransomware-in-24-hours/)
+*Report 3*: [BumbleBee Roasts Its Way to Domain Admin](https://thedfirreport.com/2022/08/08/bumblebee-roasts-its-way-to-domain-admin/)
