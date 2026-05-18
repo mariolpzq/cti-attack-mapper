@@ -15,8 +15,9 @@ from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
 from langgraph.prebuilt import create_react_agent
-
 from src.tools import search_attack_techniques
+import warnings
+warnings.filterwarnings("ignore", message="create_react_agent has been moved")
 
 load_dotenv()
 
