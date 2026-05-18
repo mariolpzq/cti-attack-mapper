@@ -14,14 +14,14 @@ import time
 
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
-from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.agents import create_react_agent
+from langchain_groq import ChatGroq
+from langgraph.prebuilt import create_react_agent
 
 from src.tools import search_attack_techniques
 
 load_dotenv()
 
-MODEL_NAME = "gemini-2.5-flash"
+MODEL_NAME = "llama-3.3-70b-versatile"
 MAX_REPORT_CHARS = 32000  # ~8k tokens; truncate longer reports for cost control
 
 RETRY_WAIT_SECONDS = 20
@@ -72,11 +72,9 @@ If no techniques are clearly described, return {"techniques": []}.
 
 
 def _build_agent():
-    if not os.environ.get("GOOGLE_API_KEY"):
-        raise RuntimeError(
-            "GOOGLE_API_KEY environment variable not set"
-        )
-    llm = ChatGoogleGenerativeAI(model=MODEL_NAME, temperature=0.0)
+    if not os.environ.get("GROQ_API_KEY"):
+        raise RuntimeError("GROQ_API_KEY environment variable not set")
+    llm = ChatGroq(model=MODEL_NAME, temperature=0.0)
     return create_react_agent(
         model=llm,
         tools=[search_attack_techniques],
