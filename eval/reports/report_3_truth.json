@@ -1,0 +1,21 @@
+{
+  "techniques": [
+    "T1003",
+    "T1021.002",
+    "T1033",
+    "T1046",
+    "T1047",
+    "T1053",
+    "T1055",
+    "T1059.001",
+    "T1069.002",
+    "T1083",
+    "T1134",
+    "T1135",
+    "T1482",
+    "T1486",
+    "T1518.001",
+    "T1562.001"
+  ],
+  "source_url": "https://thedfirreport.com/2021/10/18/icedid-to-xinglocker-ransomware-in-24-hours/"
+}
