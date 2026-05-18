@@ -1,0 +1,16 @@
+{
+  "techniques": [
+    "T1566.001",
+    "T1204.002",
+    "T1059.001",
+    "T1027",
+    "T1547.001",
+    "T1003.001",
+    "T1021.002",
+    "T1071.001",
+    "T1560.001",
+    "T1041"
+  ],
+  "source_url": "synthetic — built locally for smoke-testing",
+  "notes": "T1566.001 spearphishing attachment, T1204.002 user execution malicious file, T1059.001 PowerShell, T1027 obfuscated/encoded payload, T1547.001 Run key persistence, T1003.001 LSASS dump, T1021.002 SMB lateral movement, T1071.001 HTTPS C2, T1560.001 RAR archive, T1041 exfil over C2"
+}

@@ -1,0 +1,22 @@
+During the intrusion, the threat actor gained initial access by sending a
+spearphishing email containing a malicious Microsoft Word attachment. When the
+victim opened the document and enabled macros, an embedded VBA macro executed
+that decoded a base64 string and launched PowerShell with the `-EncodedCommand`
+flag to run a second-stage payload entirely in memory.
+
+The PowerShell stage downloaded an additional implant over HTTPS from an
+attacker-controlled domain. The implant established persistence by creating a
+new entry in the Run registry key
+(HKCU\Software\Microsoft\Windows\CurrentVersion\Run) that pointed to the
+implant binary.
+
+For credential access, the actor used Mimikatz on the compromised host to dump
+credentials from LSASS memory. They then moved laterally across the network
+using valid domain administrator credentials and the Server Message Block
+protocol to copy tooling to remote hosts.
+
+Command and control traffic was carried over HTTPS to a small number of
+attacker-controlled web servers, blending in with normal web browsing traffic.
+Prior to exfiltration, the actor compressed staged data into a multi-volume RAR
+archive on a staging host. Exfiltration was then performed over the same HTTPS
+C2 channel.

@@ -1,0 +1,23 @@
+[project]
+name = "cti-attack-mapper"
+version = "0.1.0"
+description = "LLM agent that extracts MITRE ATT&CK techniques from CTI reports via RAG."
+requires-python = ">=3.11"
+dependencies = [
+    "langchain>=0.3.0",
+    "langgraph>=0.2.0",
+    "langchain-google-genai>=2.0.0",
+    "langchain-chroma>=0.1.4",
+    "langchain-huggingface>=0.1.0",
+    "chromadb>=0.5.0",
+    "sentence-transformers>=3.0.0",
+    "requests>=2.32.0",
+    "python-dotenv>=1.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
